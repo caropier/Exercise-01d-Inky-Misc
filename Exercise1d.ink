@@ -12,24 +12,29 @@ This exercise will demonstrate the following in the example video:
  - Create a function that serves as a timer. (This is shown in the video)
 */
 
+/*
+VAR time = -1 //  0 Morning, 1 Noon, 2 Night
+*/
 
-VAR time = 0 //  0 Morning, 1 Noon, 2 Night
-
-
-
+/*
 
 -> seashore
 
 == seashore ==
 You are sitting on the beach. 
 
-+ [Wait] -> seashore
+It is { advance_time() }
+
+
++ [Stroll down the beach] -> beach2
 -> DONE
 
 == beach2 ==
 This is further down the beach.
 
-+ [Move back up the beach] -> seashore
+It is { advance_time() } 
+* { time == 1 } [Pick up some seashells] -> shells
++ [Stroll back up the beach] -> seashore
 
 == shells ==
 You pick up the shells
@@ -38,12 +43,12 @@ You pick up the shells
 == function advance_time ==
 
     ~ time = time + 1
-    
+      
     {
         - time > 2:
             ~ time = 0
     }    
-    /*
+    
     {    
         - time == 0:
             ~ return "Morning"
@@ -55,10 +60,55 @@ You pick up the shells
             ~ return "Night"
     
     }
-    */
+
     
         
     ~ return time
     
+    */
     
+VAR time = -1
+
+-> school 
+
+== school == 
+You have arrived at school. You can barely keep your eyes open..
+It is { advance_time() }
+
++ [Lay your head down and sleep til' next period] -> school2
+-> DONE
+
+== school2 ==
+It's second period now, but you're still tired. 
+
+It is { advance_time() } 
+* { time == 1 } [leave and get coffee] -> coffee
++ [Lay your head back down] -> school
+
+== coffee ==
+You get coffee, but it doesn't help your drowsiness. Sad. 
+-> school2
     
+
+== function advance_time ==
+
+    ~ time = time + 1
+      
+    {
+        - time > 2:
+            ~ time = 0
+    }    
+    
+    {    
+        - time == 0:
+            ~ return "1st Period"
+        
+        - time == 1:
+            ~ return "Second Period"
+        
+        - time == 2:
+            ~ return "3rd Period"
+    
+    }
+
+    ~ return time
